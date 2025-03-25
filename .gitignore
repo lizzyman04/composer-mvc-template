@@ -1,0 +1,32 @@
+# Ignore Composer's vendor directory
+/vendor/
+composer.lock
+
+# Ignore the environment configuration file (contains sensitive information)
+.env
+
+# Ignore the compiled classes and cache
+/cache/
+# Ignore the node_modules folder if you use Node.js for frontend tasks (optional)
+node_modules/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor files
+/.vscode/
+/.idea/
+/*.sublime-project
+/*.sublime-workspace
+
+# Ignore log files
+*.log
+
+# Ignore uploads and temporary files
+/uploads/
+/tmp/
+
+# Ignore PHPUnit or other testing results
+phpunit.xml
+phpunit.xml.dist

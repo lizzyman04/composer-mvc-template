@@ -1,0 +1,109 @@
+:root {
+    --primary-color: #1d72b8;
+    --secondary-color: #f4f4f9;
+    --text-color: #333;
+    --text-light-color: #777;
+    --highlight-color: #444;
+    --background-color: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-top: 20px;
+    color: var(--text-color);
+}
+
+h2 {
+    font-size: 2em;
+    margin: 20px 0;
+    color: var(--highlight-color);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+ul li {
+    background-color: var(--background-color);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+ul li h3 {
+    font-size: 1.8em;
+    color: var(--text-color);
+}
+
+ul li p {
+    font-size: 1.2em;
+    color: #555;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.auth-message, .post-message {
+    color: var(--text-light-color);
+    font-size: 1.2em;
+}
+
+.no-posts {
+    color: var(--text-light-color);
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+.post-link, .logout-link {
+    font-size: 1.1em;
+    color: var(--primary-color);
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.post-link:hover, .logout-link:hover {
+    text-decoration: underline;
+}
+
+.auth-link {
+    color: var(--primary-color);
+    font-size: 1.1em;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
