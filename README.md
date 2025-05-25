@@ -14,6 +14,7 @@ This README will guide you through setting up the project, using its features, a
    - [Authentication](#authentication)
    - [Image Upload](#image-upload)
    - [Sending Emails](#sending-emails)
+   - [CSS Modules](#css-modules)
 6. [Environment Configuration](#environment-configuration)
 7. [Troubleshooting](#troubleshooting)
 
@@ -254,6 +255,95 @@ This email is sent in HTML format, and includes a personalized greeting and foot
 
 ---
 
+## CSS Modules
+
+This project includes a custom **CSS Module System** to isolate styles per view.
+
+### 📁 Structure
+
+Place modular CSS in:
+
+```
+/src/Views/styles/
+```
+
+Each file (e.g. `home.css`) will be compiled to:
+
+```
+/public/assets/css/home.css
+```
+
+### ⚙️ Watcher
+
+Run the CSS watcher with:
+
+```bash
+composer watch
+```
+
+This keeps `/assets/css/` updated automatically.
+
+---
+
+### 🧩 Using CSS Modules in Views
+
+Use the `css="..."` attribute to define the scope of a class:
+
+```php
+<div css="login">
+  <input class="form-input">
+</div>
+```
+
+Your CSS should be written like this:
+
+```css
+.css_login .form-input {
+  /* your styles */
+}
+```
+
+After compilation, it automatically becomes:
+
+```css
+[css="moduleName"] [css="login"] .form-input {
+  /* your styles */
+}
+```
+
+Where `moduleName` is the name of the file. For example, if the file is `auth.css`, the output becomes:
+
+```css
+[css="auth"] [css="login"] .form-input {
+  /* your styles */
+}
+```
+
+So in the parent tag of your component that calls the css should always have a css="cssModuleName" by default.
+
+This ensures strict scoping of components within modules. Trust me — this is a lot more complicated than it sounds.
+
+---
+
+### 🚫 Important Rules
+
+* ❌ **Never mix `css="..."` and `class="..."` in the same tag**
+* ✅ Use `css="..."` for component-scoped styles
+* ✅ Use `class="..."` for global utility styles or external frameworks like Bootstrap
+
+```php
+<!-- Correct -->
+<p css="message">Welcome!</p>
+
+<!-- Also correct -->
+<p class="text-success">Success!</p>
+
+<!-- Incorrect -->
+<p css="message" class="text-success">Don't do this</p>
+```
+
+---
+
 ## Environment Configuration
 
 Make sure your `.env` file is set up correctly before running the application. The `.env` file contains essential information like database credentials, SMTP settings, and environment-specific variables.
@@ -303,8 +393,9 @@ SUPPORT_EMAIL=
 
 ## Conclusion
 
-This Composer MVC template is a great starting point for building PHP applications using the MVC architecture. It provides easy-to-use features for user authentication, file uploads, and email handling. With a few simple configurations, you can have a powerful web application up and running quickly.
+This Composer MVC template is a great starting point for building PHP applications using the MVC architecture. It provides easy-to-use features for user authentication, file uploads, email handling 
+and CSS Modules for scoped styles. With a few simple configurations, you can have a powerful web application up and running quickly.
 
-If you have any questions or run into issues, feel free to open an issue on the project’s GitHub repository.
+Feel free to customize and extend it to suit your needs.
 
-Happy coding!
+Happy coding! 🚀

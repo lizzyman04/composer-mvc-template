@@ -83,4 +83,4 @@ h1 {
 .auth-form input[type="text"]:focus,
 .auth-form input[type="password"]:focus {
     border-color: var(--primary-color);
-}
+} 

@@ -19,13 +19,17 @@
     },
     "scripts": {
         "serve": "php -S localhost:8000 -t public",
+        "watch": "php config/css.php",
         "migrate": "php db/migrate.php",
-        "migrate:reset": "php db/migrate.php --reset"
+        "serve:watch": "composer watch & composer serve",
+        "migrate:reset": "php db/migrate.php --reset",
+        "migrate:seed": "php db/migrate.php --seed",
+        "migrate:fresh": "php db/migrate.php --reset --seed"
     },
     "authors": [
         {
             "name": "Lizzyman04",
-            "email": "arlindoabdullm@gmail.com"
+            "email": "admin@tudocomlizzyman.com"
         }
     ]
 }

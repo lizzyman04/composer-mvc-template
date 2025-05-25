@@ -16,8 +16,8 @@
 
 use Core\Router;
 
-define('BASE_PATH', dirname(__DIR__));
-define('BASE_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/');
+// Load environment constants only
+require_once __DIR__ . '/env.php';
 
 // ================================
 // ERROR REPORTING (Development Mode)
@@ -29,6 +29,8 @@ error_reporting(E_ALL);
 
 // ================================
 // AUTOLOAD, DATABASE & ROUTING
+// This section includes the Composer autoloader, initializes
+// the database connection, and runs the router with the defined endpoints.
 // ================================
 require_once BASE_PATH . '/vendor/autoload.php';
 require_once BASE_PATH . '/db/connection.php';

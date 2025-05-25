@@ -40,7 +40,7 @@ class AuthController
                 http_response_code(400);
                 echo json_encode(['error' => 'Invalid action.']);
         }
-    }    
+    }
 
     private function handleLogin()
     {
@@ -56,7 +56,7 @@ class AuthController
 
         http_response_code(401);
         return ['error' => 'Invalid credentials.'];
-    }    
+    }
 
     private function handleRegister()
     {

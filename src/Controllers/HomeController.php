@@ -33,4 +33,12 @@ class HomeController
             ]);
         }
     }
+
+    public function notFound()
+    {
+        http_response_code(404);
+        View::render('404', [
+            'message' => 'Page not found.',
+        ]);
+    }
 }

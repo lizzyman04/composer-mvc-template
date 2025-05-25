@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/auth.css">
 </head>
 
-<body>
+<body css="auth">
     <div class="auth-container">
         <h1>Authentication</h1>
 

@@ -7,7 +7,7 @@
     <script src="<?= BASE_URL ?>assets/js/home.js" defer></script>
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/home.css">
 </head>
-<body>
+<body css="home">
     <h1>Welcome to the Blog</h1>
 
     <?php if ($user_logged_in): ?>

@@ -27,6 +27,10 @@ Thumbs.db
 /uploads/
 /tmp/
 
+# Ignore compiled files
+public/assets/css/*
+!public/assets/css/README
+
 # Ignore PHPUnit or other testing results
 phpunit.xml
 phpunit.xml.dist

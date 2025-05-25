@@ -19,7 +19,8 @@
 
 use Illuminate\Database\Schema\Blueprint;
 
-function createDatabaseTables() {
+function createDatabaseTables()
+{
     createTable('users', function (Blueprint $table) {
         $table->id();
         $table->string('name');
@@ -65,3 +66,31 @@ function createDatabaseTables() {
 * For more details on adding columns and setting up constraints, read: https://laravel.com/docs/5.0/schema#adding-columns
 
  */
+
+/**
+ * ============================================
+ * SEEDERS (Insert default data after migration)
+ * ============================================
+ */
+function insertDefaultData()
+{
+    $now = date('Y-m-d H:i:s');
+
+    // Insert a default administrator user
+    $userId = insertDataReturningId('users', [
+        'name' => 'Admin',
+        'email' => 'admin@example.com',
+        'password' => password_hash('password', PASSWORD_DEFAULT),
+        'created_at' => $now,
+        'updated_at' => $now,
+    ]);
+
+    // Insert initial post
+    insertData('posts', [
+        'title' => 'Welcome Post',
+        'content' => 'This is your first post!',
+        'user_id' => $userId,
+        'created_at' => $now,
+        'updated_at' => $now,
+    ]);
+}
