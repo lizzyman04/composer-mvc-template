@@ -3,12 +3,12 @@
     "description": "A lightweight yet powerful MVC template for PHP projects using Composer.",
     "type": "project",
     "require": {
-        "illuminate/database": "^11.32",
+        "illuminate/database": "^12.21",
         "vlucas/phpdotenv": "^5.6",
-        "illuminate/http": "^11.32",
-        "illuminate/support": "^11.32",
+        "illuminate/http": "^12.21",
+        "illuminate/support": "^12.21",
         "laravel/serializable-closure": "^2.0",
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.10"
     },
     "license": "MIT",
     "autoload": {
@@ -19,17 +19,18 @@
     },
     "scripts": {
         "serve": "php -S localhost:8000 -t public",
-        "watch": "php config/css.php",
         "migrate": "php db/migrate.php",
-        "serve:watch": "composer watch & composer serve",
         "migrate:reset": "php db/migrate.php --reset",
         "migrate:seed": "php db/migrate.php --seed",
         "migrate:fresh": "php db/migrate.php --reset --seed"
     },
     "authors": [
         {
-            "name": "Lizzyman04",
+            "name": "lizzyman04",
             "email": "admin@tudocomlizzyman.com"
         }
-    ]
+    ],
+    "config": {
+        "process-timeout": 0
+    }
 }

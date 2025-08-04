@@ -1,8 +1,8 @@
 # Composer MVC Template
 
-This project is a powerful, lightweight MVC template built with **PHP** and **Composer**. It follows the MVC (Model-View-Controller) architecture to provide a clean, organized structure for developing modern PHP applications. It also incorporates useful features like image uploading, email handling, user authentication, and environment configuration using `.env` files.
+This project is a lightweight, modern MVC template built with **PHP** and **Composer**, following the Model-View-Controller (MVC) architecture. It provides a clean, organized structure for developing PHP applications, with features like user authentication, image uploading, email handling, environment configuration, and styling with **Tailwind CSS** via the Play CDN.
 
-This README will guide you through setting up the project, using its features, and understanding its structure.
+This README guides you through setting up the project, using its features, and understanding its structure.
 
 ## Table of Contents
 
@@ -14,9 +14,12 @@ This README will guide you through setting up the project, using its features, a
    - [Authentication](#authentication)
    - [Image Upload](#image-upload)
    - [Sending Emails](#sending-emails)
-   - [CSS Modules](#css-modules)
+   - [Styling with Tailwind CSS](#styling-with-tailwind-css)
+   - [Using jQuery](#using-jquery)
 6. [Environment Configuration](#environment-configuration)
 7. [Troubleshooting](#troubleshooting)
+8. [Contributing](#contributing)
+9. [License](#license)
 
 ---
 
@@ -26,7 +29,8 @@ Before you begin, ensure you have the following installed:
 
 - **PHP** >= 7.4
 - **Composer**: [Download Composer](https://getcomposer.org/)
-- **Database**: MySQL or PostgreSQL (depending on your choice in `.env`)
+- **Database**: MySQL or PostgreSQL (configured in `.env`)
+- **Internet Connection**: Required for loading **Tailwind CSS** via the Play CDN and **jQuery** CDN.
 
 ---
 
@@ -35,7 +39,7 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Lizzyman04/composer-mvc-template.git my-composer-app
+git clone https://github.com/lizzyman04/composer-mvc-template.git my-composer-app
 ```
 
 2. Navigate to the project directory:
@@ -60,35 +64,35 @@ cp .env.example .env
 
 6. Set up your database by running migrations or manually creating tables according to your project's needs.
 
-7. Composer provides some useful scripts for managing the project, particularly for migrations and server startup. 
+7. Composer provides useful scripts for managing the project:
 
-   - **To start the local development server** on `http://localhost:8000`, you can use the following command:
+   - **Start the local development server** on `http://localhost:8000`:
 
    ```bash
    composer serve
    ```
 
-   - **To run migrations** (which will create any missing tables in the database), use:
+   - **Run migrations** to create missing database tables:
 
    ```bash
    composer migrate
    ```
 
-   - **To reset the database** and drop all existing tables before recreating them, use:
+   - **Reset the database** (drops all tables and recreates them):
 
    ```bash
    composer migrate:reset
    ```
 
-   The `migrate:reset` command will **delete all the existing tables** and recreate them from scratch. The `migrate` command, on the other hand, will **only create tables that do not exist yet**, leaving any existing tables untouched.
+   > **Note**: The `migrate:reset` command deletes all existing tables and recreates them. The `migrate` command only creates tables that do not yet exist.
 
-8. After running the necessary migrations, **start the local server** with:
+8. Start the local server:
 
 ```bash
 composer serve
 ```
 
-And then visit [http://localhost:8000](http://localhost:8000).
+Visit [http://localhost:8000](http://localhost:8000) in your browser.
 
 ---
 
@@ -110,6 +114,10 @@ Here's an overview of the main project directories and files:
 │   ├── /Controllers
 │   ├── /Models
 │   ├── /Views
+│   │   ├── /layouts
+│   │   │   ├── main.php
+│   │   │   ├── tailwinds.php
+│   ├── └──...
 ├── /core
 │   ├── Mailer.php
 │   ├── Router.php
@@ -132,49 +140,47 @@ Here's an overview of the main project directories and files:
 
 ### Directory Descriptions:
 
-- **/public**: The public directory contains all publicly accessible files. This includes:
-  - `/assets`: Static files such as images, CSS, and JavaScript.
-  - `index.php`: The entry point for the application.
-  - `404.php`: Custom 404 error page.
-  - `/uploads`: Directory for user-uploaded files (such as images).
+- **/public**: Contains publicly accessible files:
+  - `/assets`: Static files (eg: images, JavaScript).
+  - `index.php`: Application entry point.
+  - `/uploads`: Directory for user-uploaded files (e.g., images).
 
-- **/src**: This folder contains the core logic of your application:
-  - `/Controllers`: Controllers responsible for handling requests and interacting with models.
-  - `/Models`: Models which interact with the database and define the application’s data structure.
-  - `/Views`: Templates for rendering the HTML pages of the application.
+- **/src**: Core application logic:
+  - `/Controllers`: Handles requests and interacts with models.
+  - `/Models`: Defines data structures and interacts with the database.
+  - `/Views`: Templates for rendering HTML pages.
+  - `/Views/layouts`: Contains layout files including `main.php` (base template).
 
-- **/core**: Contains helper and utility classes:
-  - `Mailer.php`: Handles email sending functionality.
-  - `Router.php`: Loads and manages the routes defined in `/config/endpoints.php`.
-  - `Uploader.php`: Handles file uploads (such as images).
-  - `View.php`: Responsible for rendering the views and templates.
+- **/core**: Utility classes:
+  - `Mailer.php`: Manages email sending.
+  - `Router.php`: Handles routing (uses `/config/endpoints.php`).
+  - `Uploader.php`: Manages file uploads.
+  - `View.php`: Renders views and templates.
 
-- **/database**: Contains files related to database management:
-  - `connection.php`: Establishes the connection to the database.
-  - `migrate.php`: Manages database migrations to create tables as defined in `/config/database.php` from the `config` folder.
+- **/database**: Database management files:
+  - `connection.php`: Establishes database connections.
+  - `migrate.php`: Manages database migrations (uses `/config/database.php`).
 
-- **/config**: Contains basic configuration files:
-  - `config.php`: The main configuration file for the project.
-  - `database.php`: Contains functions and settings for creating and managing the database.
-  - `endpoints.php`: Defines the routes for the application.
+- **/config**: Configuration files:
+  - `config.php`: Main project configuration.
+  - `database.php`: Database settings and migration functions.
+  - `endpoints.php`: Application routes.
 
-- **.env**: Environment file that contains sensitive configuration data such as database credentials and email settings.
-- **.env.example**: Example environment file template for creating your own `.env` file.
-- **.gitignore**: Specifies files and directories that Git should ignore.
-- **composer.json**: The Composer dependencies file, used to manage project libraries and dependencies.
-- **LICENSE**: The project license file.
-- **README.md**: The project documentation.
+- **.env**: Stores sensitive configuration (e.g., database credentials, email settings).
+- **.env.example**: Template for creating `.env`.
+- **.gitignore**: Specifies files/directories ignored by Git.
+- **composer.json**: Manages Composer dependencies.
+- **LICENSE**: Project license.
+- **README.md**: Project documentation.
 
 ---
 
 ## Configuration
 
-Before running the application, you must configure the following:
+### 1. **Database Configuration**
+Update the `.env` file with your database credentials:
 
-### 1. **Database Configuration**:
-In the `.env` file, set your database credentials:
-
-```
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -183,10 +189,10 @@ DB_USERNAME=your_database_username
 DB_PASSWORD=your_database_password
 ```
 
-### 2. **Email Configuration (Optional)**:
-Set your email SMTP configuration in the `.env` file:
+### 2. **Email Configuration (Optional)**
+Configure SMTP settings in the `.env` file for email functionality:
 
-```
+```env
 MAIL_HOST=smtp.your-email-provider.com
 MAIL_PORT=587
 MAIL_USERNAME=your-email@example.com
@@ -202,21 +208,20 @@ SUPPORT_EMAIL=support@example.com
 
 ### Authentication
 
-The system includes user authentication with login and registration forms. You can customize the `auth.php` views as needed.
+The project includes user authentication with login and registration forms, handled by the `AuthController`. Customize the views in `/src/Views/auth.php` as needed.
 
-1. **Login**: Users can log in by providing their email and password.
-2. **Registration**: Users can create a new account by providing their name, email, and password.
+- **Login**: Users provide email and password to log in.
+- **Registration**: Users create accounts with name, email, and password.
 
-Both forms are handled by the `AuthController`. This controller uses basic validation to ensure fields are filled and users are properly authenticated.
+The `AuthController` validates input and manages authentication.
 
 ### Image Upload
 
-The `Uploader` class provides a simple method for uploading images. Here's how to use it:
+The `Uploader` class handles file uploads (e.g., images):
 
 ```php
 use Core\Uploader;
 
-// Assuming a form is used to upload an image
 if ($_FILES['image']) {
     try {
         $targetDir = 'uploads/images';
@@ -228,11 +233,11 @@ if ($_FILES['image']) {
 }
 ```
 
-This handles both Laravel-style file uploads and regular file array uploads.
+Ensure the `uploads/` directory has write permissions (e.g., `chmod 755 uploads`).
 
 ### Sending Emails
 
-The `Mailer` class uses **PHPMailer** to send emails. Here's how you can create and send an email:
+The `Mailer` class uses **PHPMailer** to send emails:
 
 ```php
 use Core\Mailer;
@@ -251,151 +256,86 @@ if ($sendResult['success']) {
 }
 ```
 
-This email is sent in HTML format, and includes a personalized greeting and footer with support information.
+Emails are sent in HTML format with personalized greetings and a footer.
 
----
+### Styling with Tailwind CSS
 
-## CSS Modules
+This project uses **Tailwind CSS** via the Play CDN for styling, eliminating the need for a build step during development. The base layout (`/src/Views/layouts/main.php`) includes the Tailwind CSS CDN.
 
-This project includes a custom **CSS Module System** to isolate styles per view.
+#### Example Usage in Views
 
-### 📁 Structure
-
-Place modular CSS in:
-
-```
-/src/Views/styles/
-```
-
-Each file (e.g. `home.css`) will be compiled to:
-
-```
-/public/assets/css/home.css
-```
-
-### ⚙️ Watcher
-
-Run the CSS watcher with:
-
-```bash
-composer watch
-```
-
-This keeps `/assets/css/` updated automatically.
-
----
-
-### 🧩 Using CSS Modules in Views
-
-Use the `css="..."` attribute to define the scope of a class:
+Apply Tailwind utility classes directly in your views:
 
 ```php
-<div css="login">
-  <input class="form-input">
+<div class="bg-gray-100 p-6 rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-clifford">Welcome!</h1>
+    <p class="mt-4 text-gray-600">This is a Tailwind-styled component.</p>
 </div>
 ```
 
-Your CSS should be written like this:
+### Using jQuery
 
-```css
-.css_login .form-input {
-  /* your styles */
-}
-```
+The project includes **jQuery** via a CDN for client-side scripting, loaded in the `main.php` layout. Use jQuery to add interactivity to your views.
 
-After compilation, it automatically becomes:
-
-```css
-[css="moduleName"] [css="login"] .form-input {
-  /* your styles */
-}
-```
-
-Where `moduleName` is the name of the file. For example, if the file is `auth.css`, the output becomes:
-
-```css
-[css="auth"] [css="login"] .form-input {
-  /* your styles */
-}
-```
-
-So in the parent tag of your component that calls the css should always have a css="cssModuleName" by default.
-
-This ensures strict scoping of components within modules. Trust me — this is a lot more complicated than it sounds.
-
----
-
-### 🚫 Important Rules
-
-* ❌ **Never mix `css="..."` and `class="..."` in the same tag**
-* ✅ Use `css="..."` for component-scoped styles
-* ✅ Use `class="..."` for global utility styles or external frameworks like Bootstrap
+#### Example jQuery Usage
 
 ```php
-<!-- Correct -->
-<p css="message">Welcome!</p>
-
-<!-- Also correct -->
-<p class="text-success">Success!</p>
-
-<!-- Incorrect -->
-<p css="message" class="text-success">Don't do this</p>
+<script>
+    $(document).ready(function() {
+        $('.toggle-button').click(function() {
+            $('.content').toggleClass('hidden');
+        });
+    });
+</script>
 ```
 
----
-
-## Environment Configuration
-
-Make sure your `.env` file is set up correctly before running the application. The `.env` file contains essential information like database credentials, SMTP settings, and environment-specific variables.
-
-### Example `.env` file:
-
-```env
-
-# Application Configuration
-APP_URL=
-APP_ENV=
-
-# Database Configuration
-DB_CONNECTION=
-DB_HOST=
-DB_PORT=
-DB_DATABASE=
-DB_USERNAME=
-DB_PASSWORD=
-
-# Mail Configuration
-MAIL_HOST=
-MAIL_PORT=
-MAIL_USERNAME=
-MAIL_PASSWORD=
-MAIL_FROM_ADDRESS=
-MAIL_FROM_NAME=
-
-# Support Email Configuration
-SUPPORT_EMAIL=
-
+```php
+<button class="toggle-button bg-blue-500 text-white px-4 py-2 rounded">Toggle</button>
+<div class="content mt-4">This content can be toggled.</div>
 ```
+
+Ensure jQuery scripts are placed after the CDN include in `main.php`.
 
 ---
 
 ## Troubleshooting
 
-1. **Missing Dependencies**: If Composer fails to install the required dependencies, ensure that you have the necessary PHP extensions installed. Run `composer install` again after fixing any missing extensions.
+1. **Missing Dependencies**: If `composer install` fails, ensure PHP extensions (e.g., `pdo_mysql`) are enabled. Re-run `composer install`.
 
-2. **Database Connection Error**: Double-check your `.env` file for the correct database credentials. Make sure the database server is running.
+2. **Database Connection Error**: Verify `.env` database credentials and ensure the database server is running.
 
-3. **Email Sending Issues**: Ensure that your email SMTP settings are correct in the `.env` file. You can test the email configuration by sending a test email from a different service.
+3. **Email Sending Issues**: Check `.env` SMTP settings. Test with a third-party email service if needed.
 
-4. **File Upload Issues**: If image uploads fail, ensure that your web server has the necessary permissions to write to the `uploads/` directory. You might need to adjust folder permissions (e.g., `chmod 755`).
+4. **File Upload Issues**: Ensure the `uploads/` directory has write permissions (e.g., `chmod 755 uploads`).
+
+5. **Tailwind CSS Not Loading**: Confirm an active internet connection for the Play CDN. For production, switch to a static build.
+
+6. **jQuery Errors**: Ensure jQuery scripts are loaded after the CDN include. Check browser console for errors.
+
+---
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -m 'Add your feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a pull request.
+
+Please include tests and documentation for your changes.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
 ## Conclusion
 
-This Composer MVC template is a great starting point for building PHP applications using the MVC architecture. It provides easy-to-use features for user authentication, file uploads, email handling 
-and CSS Modules for scoped styles. With a few simple configurations, you can have a powerful web application up and running quickly.
-
-Feel free to customize and extend it to suit your needs.
+This Composer MVC template provides a robust foundation for PHP applications, with features like authentication, file uploads, email handling, Tailwind CSS for styling, and jQuery for interactivity. With minimal setup, you can build and customize powerful web applications.
 
 Happy coding! 🚀

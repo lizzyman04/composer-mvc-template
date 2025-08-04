@@ -22,18 +22,6 @@ define(
 );
 
 // ================================
-// CSS MODULE CONFIG
-// This configuration is used by the CSS module watcher.
-// It defines the input and output directories for CSS files,
-// as well as the watch interval in milliseconds.
-// ================================
-define('CSS_CONFIG', [
-    'input_dir' => BASE_PATH . '/src/Views/styles',
-    'output_dir' => BASE_PATH . '/public/assets/css',
-    'watch_interval_ms' => 2000,
-]);
-
-// ================================
 // ROUTER NOT FOUND CONTROLLER
 // This controller is used when no route matches the request.
 // It should handle 404 errors gracefully.

@@ -2,6 +2,7 @@
 
 namespace Source\Controllers;
 
+use Core\Helpers\AuthHelper;
 use Source\Models\User;
 use Core\View;
 
@@ -9,23 +10,19 @@ class AuthController
 {
     public function auth()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        AuthHelper::start();
 
         if (isset($_SESSION['user_id'])) {
             header('Location: /');
             exit;
         }
 
-        View::render('auth');
+        View::render('auth', ['title' => 'Authentication']);
     }
 
     public function authenticate()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        AuthHelper::start();
 
         $action = $_POST['action'] ?? '';
 
@@ -47,6 +44,13 @@ class AuthController
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
+        // Validate inputs using AuthHelper
+        $validation = AuthHelper::validate($email, null, $password);
+        if (!$validation['isValid']) {
+            http_response_code(400);
+            return ['error' => $validation['error']];
+        }
+
         $user = User::where('email', $email)->first();
 
         if ($user && password_verify($password, $user->password)) {
@@ -64,6 +68,13 @@ class AuthController
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
+        // Validate inputs using AuthHelper
+        $validation = AuthHelper::validate($email, null, $password);
+        if (!$validation['isValid']) {
+            http_response_code(400);
+            return ['error' => $validation['error']];
+        }
+
         if (User::where('email', $email)->exists()) {
             http_response_code(409);
             return ['error' => 'User already exists.'];
@@ -73,6 +84,7 @@ class AuthController
             'name' => $name,
             'email' => $email,
             'password' => password_hash($password, PASSWORD_BCRYPT),
+            'role' => 'user', // Default role
         ]);
 
         $_SESSION['user_id'] = $user->id;
@@ -81,11 +93,9 @@ class AuthController
 
     public function logout()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
+        AuthHelper::start();
         session_destroy();
         header('Location: /');
+        exit;
     }
 }
